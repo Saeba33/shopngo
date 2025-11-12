@@ -1,5 +1,6 @@
 import HomeHeader from "@/components/HomeHeader";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import ProductCard from "@/components/ProductCard";
 import { AppColors } from "@/constants/theme";
 import { useProductStore } from "@/store/productStore";
 import { Product } from "@/types";
@@ -7,6 +8,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
+	FlatList,
 	ScrollView,
 	StyleSheet,
 	Text,
@@ -99,6 +101,44 @@ export default function HomeScreen() {
 							))}
 						</ScrollView>
 					</View>
+					<View style={styles.featuredSection}>
+						<View style={styles.sectionHeader}>
+							<Text style={styles.sectionTitle}>Best Sales</Text>
+							{/* <TouchableOpacity onPress={navigateToAllProducts}>
+								<Text style={styles.seeAllText}>See All</Text>
+							</TouchableOpacity> */}
+						</View>
+						<FlatList
+							data={featuredProducts}
+							keyExtractor={(item) => item.id.toString()}
+							horizontal
+							showsHorizontalScrollIndicator={false}
+							contentContainerStyle={styles.featuredProductsContainer}
+							renderItem={({ item }) => (
+								<View style={styles.featuredProductContainer}>
+									<ProductCard product={item} compact />
+								</View>
+							)}
+						/>
+					</View>
+					<View style={styles.newestSection}>
+						<View style={styles.sectionHeader}>
+							<Text style={styles.sectionTitle}>New</Text>
+							<TouchableOpacity>
+								<Text style={styles.seeAllText}>See All</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={styles.productGrid}>
+							{products?.map((product) => (
+								<View key={product.id} style={styles.productContainer}>
+									<ProductCard
+										product={product}
+										customStyle={{ width: "100%" }}
+									/>
+								</View>
+							))}
+						</View>
+					</View>
 				</ScrollView>
 			</View>
 		</View>
@@ -139,6 +179,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		alignItems: "center",
 		marginBottom: 16,
+		paddingRight: 20,
 	},
 	sectionTitle: {
 		fontFamily: "Inter-Medium",
@@ -160,5 +201,15 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		color: AppColors.text.primary,
 		textTransform: "capitalize",
+	},
+	featuredProductsContainer: {},
+	featuredProductContainer: {},
+	featuredSection: {},
+	newestSection: {},
+	seeAllText: {},
+	productContainer: {},
+	productGrid: {
+		justifyContent: "center",
+		paddingRight: 20,
 	},
 });
