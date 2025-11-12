@@ -104,10 +104,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderWidth: 1,
 		borderColor: AppColors.primary[500],
+        paddingHorizontal: 3,
 	},
 	itemsText: {
 		fontSize: 10,
+        lineHeight: 10,
 		color: AppColors.accent[500],
 		fontWeight: 800,
+        textAlign: "center",
 	},
 });
