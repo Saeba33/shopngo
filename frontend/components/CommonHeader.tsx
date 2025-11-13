@@ -1,11 +1,17 @@
 import { AppColors } from "@/constants/theme";
-import { Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CommonHeader = () => {
+interface Props {
+	isFav?: boolean;
+	showCart?: boolean;
+	handleToggleFavorite?: () => void;
+}
+
+const CommonHeader = ({ isFav, showCart, handleToggleFavorite }: Props) => {
 	const router = useRouter();
 	const handleGoBack = () => {
 		if (router.canGoBack()) {
@@ -20,6 +26,34 @@ const CommonHeader = () => {
 			<TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
 				<Feather name="arrow-left" size={24} color={AppColors.text.primary} />
 			</TouchableOpacity>
+			<View style={styles.buttonView}>
+				<TouchableOpacity
+					style={[styles.favoriteButton, isFav && styles.activeFavoriteButton]}
+					onPress={handleToggleFavorite}
+				>
+					<AntDesign
+						name="heart"
+						size={24}
+						color={
+							isFav ? AppColors.background.primary : AppColors.text.primary
+						}
+						fill={isFav ? AppColors.background.primary : "transparent"}
+					/>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={[styles.favoriteButton, isFav && styles.activeFavoriteButton]}
+					onPress={() => router.push("/(tabs)/cart")}
+				>
+					<MaterialCommunityIcons
+						name="cart-outline"
+						size={24}
+						color={
+							isFav ? AppColors.background.primary : AppColors.text.primary
+						}
+						fill={isFav ? AppColors.background.primary : "transparent"}
+					/>
+				</TouchableOpacity>
+			</View>
 			<Text>CommonHeader</Text>
 		</SafeAreaView>
 	);
@@ -31,7 +65,7 @@ const styles = StyleSheet.create({
 	header: {
 		flexDirection: "row",
 		justifyContent: "center",
-        alignItems:"center",
+		alignItems: "center",
 		paddingHorizontal: 16,
 		paddingTop: 16,
 		zIndex: 10,
@@ -56,4 +90,8 @@ const styles = StyleSheet.create({
 	activeFavoriteButton: {
 		backgroundColor: AppColors.error,
 	},
+    buttonView: {
+        flexDirection: "row",
+        gap: 7,
+    },
 });

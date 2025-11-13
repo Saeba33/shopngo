@@ -15,6 +15,19 @@ const getProducts = async (): Promise<Product[]> => {
 	}
 };
 
+const getProduct = async (id:number): Promise<Product> => {
+	try {
+		const response = await fetch(`${API_URL}/product/${id}`);
+		if (!response.ok) {
+			throw new Error('Network response was not ok');
+		}
+		return await response.json();
+	} catch (error) {
+		console.error(`Error fetching product width id ${id} :`, error);
+		throw error;
+	}
+};
+
 const getCategories = async (): Promise<string[]> => {
 	try {
 		const response = await fetch(`${API_URL}/products/categories`);
@@ -28,4 +41,4 @@ const getCategories = async (): Promise<string[]> => {
 	}
 };
 
-export { getCategories, getProducts };
+export { getCategories, getProducts, getProduct };
