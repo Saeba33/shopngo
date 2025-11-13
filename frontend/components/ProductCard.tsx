@@ -2,7 +2,6 @@ import { AppColors } from "@/constants/theme";
 import { Product } from "@/types";
 import React from "react";
 import {
-	Alert,
 	Image,
 	StyleProp,
 	StyleSheet,
@@ -12,6 +11,8 @@ import {
 	ViewStyle,
 } from "react-native";
 import Button from "./Button";
+import Toast from "react-native-toast-message";
+import { useRouter } from "expo-router";
 
 interface ProductCardProps {
 	product: Product;
@@ -25,11 +26,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	customStyle,
 }) => {
 	const { id, title, price, category, image } = product;
+	const router = useRouter();
+	const handleProductRoute = () => {
+		router.push(`/product/${id}` as any);
+	}
 	const handleAddToCart = () => {
-		Alert.alert(`Produit ${title} added to cart`)
+		Toast.show({
+			type: "success",
+			text1: `${title} added to cart`,
+			text2: "View cart to complete your purchase",
+			visibilityTime: 4000,
+		})
 	}
 	return (
 		<TouchableOpacity
+		onPress={handleProductRoute}
 			style={[styles.card, compact && styles.compactCard, customStyle]}
 			activeOpacity={0.8}
 		>
