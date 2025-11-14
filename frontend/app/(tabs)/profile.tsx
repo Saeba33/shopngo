@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import React, {useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useAuthStore } from '@/store/authStore'
 import { useRouter } from 'expo-router'
 import Wrapper from '@/components/Wrapper'
 import { AppColors } from '@/constants/theme'
+import Button from '@/components/Button'
 
 const ProfileScreen = () => {
 	const {user, logout, checkSession} = useAuthStore();
@@ -24,7 +25,27 @@ const ProfileScreen = () => {
 				</View>
 			) : (
 				<View style={styles.container}>
-					<Text>Welcome !</Text>
+					<Text style={styles.title}>Welcome !</Text>
+					<Text style={styles.message}>
+						Please log in or register to access your profile.
+					</Text>
+					<View style={styles.buttonContainer}>
+						<Button
+							title="Login"
+							fullWidth
+							style={styles.loginButton}
+							textStyle={styles.buttonText}
+							onPress={() => router.push("/(tabs)/login")}
+						/>
+						<Button
+							title="Inscription"
+							fullWidth
+							variant="outline"
+							style={styles.signupButton}
+							textStyle={styles.signupButtonText}
+							onPress={() => router.push("/(tabs)/signup")}
+						/>
+					</View>
 				</View>
 			)}
 		</Wrapper>
@@ -107,5 +128,31 @@ const styles = StyleSheet.create({
 		fontFamily: "Inter-SemiBold",
 		fontSize: 16,
 		color: AppColors.primary[500],
+	},
+
+
+	container:{
+		flex:1,
+		backgroundColor: AppColors.background.primary,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	header:{
+		paddingBottom: 16,
+		backgroundColor: AppColors.background.primary,
+		marginTop: Platform.OS === "android" ? 30 : 0,
+	},
+	title:{
+		fontFamily: "Inter-Bold",
+		fontSize: 24,
+		color:AppColors.text.primary,
+	},
+	profileCard:{
+		flexDirection:"row",
+		alignItems: "center",
+		backgroundColor: AppColors.background.primary,
+		paddingVertical: 20,
+		borderBottomWidth:1,
+		borderBlockColor: AppColors.gray[200],
 	},
 });
