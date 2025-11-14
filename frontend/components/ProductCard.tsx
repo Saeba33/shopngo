@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					<Text style={[styles.price, !compact && {marginBottom: 4}]}>${price.toFixed(2)}</Text>
 					{!compact && (
 						<Button
-							title="Ajouter au panier"
+							title="Add to cart"
 							size="small"
 							variant="outline"
 							onPress={handleAddToCart}

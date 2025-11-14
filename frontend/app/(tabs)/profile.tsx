@@ -38,7 +38,7 @@ const ProfileScreen = () => {
 							onPress={() => router.push("/(tabs)/login")}
 						/>
 						<Button
-							title="Inscription"
+							title="Register"
 							fullWidth
 							variant="outline"
 							style={styles.signupButton}
