@@ -30,7 +30,7 @@ const SignUpScreen = () => {
 		if (!email.trim()) {
 			setEmailError("Email required");
 			isValid = false;
-		} else if (!/\S+@\.\S+/.test(email)) {
+		} else if (!/\S+@\S+\.\S+/.test(email)) {
 			setEmailError("Invalid email format");
 			isValid = false;
 		} else {

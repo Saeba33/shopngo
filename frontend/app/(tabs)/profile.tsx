@@ -1,14 +1,27 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
-import React, {useEffect} from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useAuthStore } from '@/store/authStore'
-import { useRouter } from 'expo-router'
-import Wrapper from '@/components/Wrapper'
-import { AppColors } from '@/constants/theme'
-import Button from '@/components/Button'
+import Button from "@/components/Button";
+import Wrapper from "@/components/Wrapper";
+import { AppColors } from "@/constants/theme";
+import { useAuthStore } from "@/store/authStore";
+import {
+	Feather,
+	FontAwesome5,
+	Foundation,
+	MaterialIcons,
+} from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import {
+	Alert,
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
+import Toast from "react-native-toast-message";
 
 const ProfileScreen = () => {
-	const {user, logout, checkSession} = useAuthStore();
+	const { user, logout, checkSession, isLoading } = useAuthStore();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -17,11 +30,135 @@ const ProfileScreen = () => {
 		}
 	}, [user]);
 
-  return (
+	const menuItems = [
+		{
+			id: "cart",
+			icon: (
+				<Foundation
+					name="shopping-cart"
+					size={20}
+					color={AppColors.primary[500]}
+				/>
+			),
+			title: "My cart",
+			onPress: () => {
+				router.push("/(tabs)/cart");
+			},
+		},
+		{
+			id: "orders",
+			icon: (
+				<FontAwesome5
+					name="box-open"
+					size={16}
+					color={AppColors.primary[500]}
+				/>
+			),
+			title: "My orders",
+			onPress: () => {
+				router.push("/(tabs)/orders");
+			},
+		},
+		{
+			id: "payment",
+			icon: (
+				<Foundation
+					name="credit-card"
+					size={20}
+					color={AppColors.primary[500]}
+				/>
+			),
+			title: "My payments",
+			onPress: () => {},
+		},
+		{
+			id: "address",
+			icon: <Foundation name="home" size={20} color={AppColors.primary[500]} />,
+			title: "shipping adress",
+			onPress: () => {},
+		},
+		{
+			id: "settings",
+			icon: <Foundation name="home" size={20} color={AppColors.primary[500]} />,
+			title: "Settings",
+			onPress: () => {},
+		},
+	];
+
+	const handleLogout = () => {
+		Alert.alert("Logout", "Are you sure you want to log out?", [
+			{
+				text: "Cancel",
+				style: "cancel",
+			},
+			{
+				text: "Logout",
+				onPress: async () => {
+					try {
+						await logout();
+						Toast.show({
+							type: "success",
+							text1: "Logout successfull",
+							text2: "You have been disconnected",
+							visibilityTime: 2000,
+						});
+					} catch (error) {
+						console.error("Profile: error during the logout", error);
+						Alert.alert("Logout error", "An error has occured");
+					}
+				},
+			},
+		]);
+	};
+
+	return (
 		<Wrapper>
 			{user ? (
 				<View>
-					<Text>User avaible</Text>
+					<View style={styles.header}>
+						<Text style={styles.title}>My Profil</Text>
+					</View>
+					<View style={styles.profileCard}>
+						<View style={styles.avatarContainer}>
+							<Feather name="user" size={40} color={AppColors.gray[400]} />
+						</View>
+						<View style={styles.profileInfo}>
+							<Text style={styles.profileEmail}>{user?.email}</Text>
+							<TouchableOpacity>
+								<Text style={styles.editProfileText}>Edit my profile</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+					<View style={styles.menuContainer}>
+						{menuItems?.map((item) => (
+							<TouchableOpacity
+								key={item?.id}
+								style={styles.menuItem}
+								onPress={item?.onPress}
+							>
+								<View style={styles.menuItemLeft}>
+									{item?.icon}
+									<Text style={styles.menuItemTitle}>{item?.title}</Text>
+								</View>
+								<MaterialIcons
+									name="chevron-right"
+									size={24}
+									color={AppColors.gray[400]}
+								/>
+							</TouchableOpacity>
+						))}
+					</View>
+					<View>
+						<Button
+							title="Logout"
+							onPress={handleLogout}
+							variant="outline"
+							fullWidth
+							style={styles.logoutButton}
+							textStyle={styles.logoutButtonText}
+							disabled={isLoading}
+						/>
+					</View>
 				</View>
 			) : (
 				<View style={styles.container}>
@@ -50,7 +187,7 @@ const ProfileScreen = () => {
 			)}
 		</Wrapper>
 	);
-}
+};
 
 export default ProfileScreen;
 
@@ -130,29 +267,40 @@ const styles = StyleSheet.create({
 		color: AppColors.primary[500],
 	},
 
-
-	container:{
-		flex:1,
+	container: {
+		flex: 1,
 		backgroundColor: AppColors.background.primary,
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	header:{
+	header: {
 		paddingBottom: 16,
 		backgroundColor: AppColors.background.primary,
 		marginTop: Platform.OS === "android" ? 30 : 0,
 	},
-	title:{
+	title: {
 		fontFamily: "Inter-Bold",
 		fontSize: 24,
-		color:AppColors.text.primary,
+		color: AppColors.text.primary,
 	},
-	profileCard:{
-		flexDirection:"row",
+	profileCard: {
+		flexDirection: "row",
 		alignItems: "center",
 		backgroundColor: AppColors.background.primary,
 		paddingVertical: 20,
-		borderBottomWidth:1,
+		borderBottomWidth: 1,
 		borderBlockColor: AppColors.gray[200],
+	},
+	avatarContainer: {
+		width: 60,
+		height: 60,
+		borderRadius: 30,
+		backgroundColor: AppColors.gray[200],
+		alignItems: "center",
+		justifyContent: "center",
+		marginRight: 16,
+	},
+	profileInfo: {
+		flex: 1,
 	},
 });
