@@ -1,7 +1,13 @@
+import Wrapper from "@/components/Wrapper";
 import { AppColors } from "@/constants/theme";
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 
 const ShopScreen = () => {
 	const [products, setProducts] = useState([]);
@@ -19,13 +25,22 @@ const ShopScreen = () => {
 		getProducts();
 	}, []);
 
-	return (
-		<SafeAreaView>
-			<View>
-				<Text>Shop Screen</Text>
+	const renderHeader = () => {
+		return (
+			<View style={styles.header}>
+				<Text style={styles.title}>All products</Text>
+				<View style={styles.searchRow}>
+					<View style={styles.searchContainer}>
+						<TouchableOpacity style={styles.searchInput}>
+							Search a product
+						</TouchableOpacity>
+					</View>
+				</View>
 			</View>
-		</SafeAreaView>
-	);
+		);
+	};
+
+	return <Wrapper>{renderHeader()}</Wrapper>;
 };
 
 export default ShopScreen;
@@ -53,7 +68,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	searchInput: {
-		marginBottom: 0,
+		backgroundColor: AppColors.background.secondary,
+		borderRadius: 8,
+		paddingHorizontal: 16,
+		paddingVertical: 12,
+		fontSize: 16,
+		borderWidth: 1,
+		borderColor: AppColors.gray[300],
+		color: AppColors.text.primary,
 	},
 	searchInputStyle: {
 		backgroundColor: AppColors.background.secondary,
