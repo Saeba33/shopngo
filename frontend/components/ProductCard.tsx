@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	compact = false,
 	customStyle,
 }) => {
-	const { id, title, price, category, image } = product;
+	const { id, title, price, category, image, rating } = product;
 	const router = useRouter();
 	const handleProductRoute = () => {
 		router.push(`/product/${id}` as any);
@@ -62,6 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 				</Text>
 				<View style={styles.footer}>
 					<Text style={[styles.price, !compact && {marginBottom: 4}]}>${price.toFixed(2)}</Text>
+					<Text style={[styles.ratingText, !compact && {marginBottom:7}]}>Rate: {rating?.count}</Text>
 					{!compact && (
 						<Button
 							title="Add to cart"
@@ -147,4 +148,9 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: AppColors.gray[200],
 	},
+	ratingText:{
+		marginBottom:8,
+		textTransform: "capitalize",
+		color: AppColors.gray[600],
+	}
 });
