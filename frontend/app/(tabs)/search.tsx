@@ -1,20 +1,19 @@
 import Wrapper from "@/components/Wrapper";
 import { AppColors } from "@/constants/theme";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-
+const renderHeader = () => {
+	return (
+		<View>
+			<Text>Header</Text>
+		</View>
+	);
+};
 
 const SearchScreen = () => {
-	
+	const [searchQuery, setSearchQuery] = useState();
 
-	const renderHeader = () => {
-		return (
-			<View>
-				<Text>Header</Text>
-			</View>
-		);
-	};
 
 	return <Wrapper>{renderHeader()}</Wrapper>;
 };
