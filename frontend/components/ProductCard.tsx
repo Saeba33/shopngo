@@ -13,6 +13,7 @@ import {
 import Button from "./Button";
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
+import Rating from "./Rating";
 
 interface ProductCardProps {
 	product: Product;
@@ -61,8 +62,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					{title}
 				</Text>
 				<View style={styles.footer}>
-					<Text style={[styles.price, !compact && {marginBottom: 4}]}>${price.toFixed(2)}</Text>
-					<Text style={[styles.ratingText, !compact && {marginBottom:7}]}>Rate: {rating?.count}</Text>
+					<Text style={[styles.price, !compact && {marginBottom: 7}]}>${price.toFixed(2)}</Text>
+					<Rating rating={rating?.rate} count={rating?.count} size={12}/>
 					{!compact && (
 						<Button
 							title="Add to cart"

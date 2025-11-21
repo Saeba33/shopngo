@@ -2,7 +2,13 @@ import { AppColors } from "@/constants/theme";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
@@ -64,11 +70,11 @@ export default CommonHeader;
 const styles = StyleSheet.create({
 	header: {
 		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
+		justifyContent: "space-between",
 		paddingHorizontal: 16,
 		paddingTop: 16,
 		zIndex: 10,
+		marginTop: Platform.OS === "android" ? 35 : 0,
 	},
 	backButton: {
 		width: 40,
@@ -90,8 +96,8 @@ const styles = StyleSheet.create({
 	activeFavoriteButton: {
 		backgroundColor: AppColors.error,
 	},
-    buttonView: {
-        flexDirection: "row",
-        gap: 7,
-    },
+	buttonView: {
+		flexDirection: "row",
+		gap: 7,
+	},
 });
