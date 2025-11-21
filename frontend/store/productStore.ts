@@ -1,4 +1,4 @@
-import { getCategories, getProducts, getProductsByCategory } from "@/lib/api";
+import { getCategories, getProducts, getProductsByCategory, searchProductsApi } from "@/lib/api";
 import { Product } from "@/types";
 import { create } from "zustand";
 
@@ -53,7 +53,7 @@ export const useProductStore = create<ProductsState>((set, get) => ({
 		try {
 			set({ selectedCategory: category, loading: true, error: null });
 			if (category) {
-				set({loading: true, error: null})
+				set({ loading: true, error: null });
 				const products = await getProductsByCategory(category);
 				set({ filteredProducts: products, loading: false });
 			} else {
@@ -108,8 +108,11 @@ export const useProductStore = create<ProductsState>((set, get) => ({
 		try {
 			set({ loading: true, error: null });
 
-			if (!query.trim()) {
-				set({ filteredProducts: get().products, loading: false });
+			if (query?.length >= 3) {
+				const searchResults = await searchProductsApi(query);
+				set({ filteredProducts: searchResults, loading: false });
+			} else {
+				set({ filteredProducts: [], loading: false });
 			}
 		} catch (error: any) {
 			set({ error: error.message, loading: false });

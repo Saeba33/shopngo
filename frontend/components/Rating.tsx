@@ -37,6 +37,7 @@ const Rating: React.FC<RatingProps> = ({
 			stars.push(
 				<Feather
 					name="star"
+                    key={i}
 					size={size}
 					color={AppColors.accent[500]}
 					style={styles.halfStarForeground}

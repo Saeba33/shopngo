@@ -1,5 +1,6 @@
 import { AppColors } from "@/constants/theme";
 import { Product } from "@/types";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
 	Image,
@@ -10,9 +11,8 @@ import {
 	View,
 	ViewStyle,
 } from "react-native";
-import Button from "./Button";
 import Toast from "react-native-toast-message";
-import { useRouter } from "expo-router";
+import Button from "./Button";
 import Rating from "./Rating";
 
 interface ProductCardProps {
@@ -30,18 +30,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	const router = useRouter();
 	const handleProductRoute = () => {
 		router.push(`/product/${id}` as any);
-	}
+	};
 	const handleAddToCart = () => {
 		Toast.show({
 			type: "success",
 			text1: `${title} added to cart`,
 			text2: "View cart to complete your purchase",
 			visibilityTime: 4000,
-		})
-	}
+		});
+	};
 	return (
 		<TouchableOpacity
-		onPress={handleProductRoute}
+			onPress={handleProductRoute}
 			style={[styles.card, compact && styles.compactCard, customStyle]}
 			activeOpacity={0.8}
 		>
@@ -62,8 +62,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					{title}
 				</Text>
 				<View style={styles.footer}>
-					<Text style={[styles.price, !compact && {marginBottom: 7}]}>${price.toFixed(2)}</Text>
-					<Rating rating={rating?.rate} count={rating?.count} size={12}/>
+					<Text style={[styles.price, !compact && { marginBottom: 7 }]}>
+						${price.toFixed(2)}
+					</Text>
+					<Rating rating={rating?.rate} count={rating?.count} size={12} />
 					{!compact && (
 						<Button
 							title="Add to cart"
@@ -149,9 +151,9 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: AppColors.gray[200],
 	},
-	ratingText:{
-		marginBottom:8,
+	ratingText: {
+		marginBottom: 8,
 		textTransform: "capitalize",
 		color: AppColors.gray[600],
-	}
+	},
 });
