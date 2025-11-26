@@ -3,10 +3,12 @@ import CartItem from "@/components/CartItem";
 import { Title } from "@/components/customText";
 import EmptyState from "@/components/EmptyState";
 import MainLayout from "@/components/MainLayout";
+import { BASE_URL } from "@/config";
 import { AppColors } from "@/constants/theme";
 import { supabase } from "@/lib/supabase";
 import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/cartStore";
+import axios from "axios";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -17,7 +19,6 @@ import {
 	View,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import axios from "axios";
 
 const CartScreen = () => {
 	const router = useRouter();
@@ -71,15 +72,11 @@ const CartScreen = () => {
 				email: user?.email,
 			};
 
-			const response = await axios.post(
-				"http://localhost:8000/checkout",
-				payload,
-				{
-					headers: {
-						"Content-Type" : "application/json"
-					}
-				}
-			);
+			const response = await axios.post(`${BASE_URL}/checkout`, payload, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 
 			const { paymentIntent, ephemeralKey, customer } = response.data;
 			console.log("res", paymentIntent, ephemeralKey, customer);
@@ -87,7 +84,6 @@ const CartScreen = () => {
 			if (!paymentIntent || !ephemeralKey || !customer) {
 				throw new Error("Required Stripe data missing from the server");
 			} else {
-
 				Toast.show({
 					type: "success",
 					text1: "Order placed",
@@ -102,14 +98,12 @@ const CartScreen = () => {
 						paymentIntent,
 						ephemeralKey,
 						customer,
-						orderId: data.id, 
+						orderId: data.id,
 						total: total,
 					},
 				});
 				clearCart();
 			}
-			
-
 		} catch (error) {
 			Toast.show({
 				type: "error",

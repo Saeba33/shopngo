@@ -1,3 +1,4 @@
 export const EXPO_PUBLIC_SUPABASE_URL=process.env.EXPO_PUBLIC_SUPABASE_URL || "";
 export const EXPO_PUBLIC_SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || "";
 export const API_URL = process.env.API_URL || "https://fakestoreapi.com";
+export const BASE_URL = "http://localhost:8000/checkout";
