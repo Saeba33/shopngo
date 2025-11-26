@@ -1,5 +1,8 @@
 import { AppColors } from "@/constants/theme";
+import { useCartStore } from "@/store/cartStore";
+import { useFavoritesStore } from "@/store/favoriteStore";
 import { Product } from "@/types";
+import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -31,6 +34,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	const handleProductRoute = () => {
 		router.push(`/product/${id}` as any);
 	};
+	const { addItem } = useCartStore();
+	const { isFavorite, toggleFavorite } = useFavoritesStore();
+	const isFav = isFavorite(id);
+	const handleToggleFavorite = () => {
+		toggleFavorite(product);
+	};
 	const handleAddToCart = () => {
 		Toast.show({
 			type: "success",
@@ -52,6 +61,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					resizeMode="contain"
 				/>
 			</View>
+			<TouchableOpacity
+				onPress={handleToggleFavorite}
+				style={[styles.favoriteButton, { borderWidth: isFav ? 1 : 0 }]}
+			>
+				<AntDesign
+					name="heart"
+					size={18}
+					color={isFav ? AppColors.error : AppColors.gray[400]}
+				/>
+			</TouchableOpacity>
 			<View style={styles.content}>
 				<Text style={styles.category}>{category}</Text>
 				<Text
@@ -121,7 +140,7 @@ const styles = StyleSheet.create({
 		height: 32,
 		justifyContent: "center",
 		alignItems: "center",
-		borderColor: AppColors.warning,
+		borderColor: AppColors.error,
 	},
 	image: {
 		width: "100%",

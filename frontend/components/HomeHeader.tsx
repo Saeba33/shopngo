@@ -1,4 +1,6 @@
 import { AppColors } from "@/constants/theme";
+import { useCartStore } from "@/store/cartStore";
+import { useFavoritesStore } from "@/store/favoriteStore";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -14,6 +16,9 @@ import Logo from "./Logo";
 
 const HomeHeader = () => {
 	const router = useRouter();
+	const { items } = useCartStore();
+	const { favoriteItems } = useFavoritesStore();
+	
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.header}>
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
 	},
 	iconContainer: {
 		flex: 1,
-		flexDirection:"row",
+		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "flex-end",
 	},
@@ -104,13 +109,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderWidth: 1,
 		borderColor: AppColors.primary[500],
-        paddingHorizontal: 3,
+		paddingHorizontal: 3,
 	},
 	itemsText: {
 		fontSize: 10,
-        lineHeight: 10,
+		lineHeight: 10,
 		color: AppColors.accent[500],
 		fontWeight: 800,
-        textAlign: "center",
+		textAlign: "center",
 	},
 });

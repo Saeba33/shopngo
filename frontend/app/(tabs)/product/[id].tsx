@@ -4,6 +4,8 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Rating from "@/components/Rating";
 import { AppColors } from "@/constants/theme";
 import { getProduct } from "@/lib/api";
+import { useCartStore } from "@/store/cartStore";
+import { useFavoritesStore } from "@/store/favoriteStore";
 import { Product } from "@/types";
 import { AntDesign } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -30,6 +32,15 @@ const SingleProductScreen = () => {
 	const idNum = Number(id);
 
 	const router = useRouter();
+	const { addItem } = useCartStore();
+	const { isFavorite, toggleFavorite } = useFavoritesStore();
+
+
+	const handleToggleFavorite = () => {
+		if (product) {
+			toggleFavorite(product);
+		}
+	};
 
 	useEffect(() => {
 		const fectchProductData = async () => {
@@ -71,8 +82,10 @@ const SingleProductScreen = () => {
 			</View>
 		);
 	}
+	const isFav = isFavorite(product?.id);
 
 	const handleAddToCart = () => {
+		addItem(product, quantity);
 		Toast.show({
 			type: "success",
 			text1: `Product ${product?.title} added to cart`,
@@ -83,7 +96,7 @@ const SingleProductScreen = () => {
 
 	return (
 		<View style={styles.headerContainerStyle}>
-			<CommonHeader />
+			<CommonHeader isFav={isFav} handleToggleFavorite={handleToggleFavorite} />
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={styles.imageContainer}>
 					<Image
