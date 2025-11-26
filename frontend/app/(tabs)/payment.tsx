@@ -1,24 +1,35 @@
 import Button from "@/components/Button";
 import { AppColors } from "@/constants/theme";
+import { useAuthStore } from "@/store/authStore";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+const getStringParam = (value: string | string[] | undefined): string =>
+	Array.isArray(value) ? value[0] : value || "";
+
 const PaymentScreen = () => {
-    return (
-			<View style={styles.container}>
-				<Text style={styles.title}>Complete your payment</Text>
-				<Text style={styles.subtitle}>
-					Please confirm your payment information to complete the order.
-				</Text>
-				<Text style={styles.totalPrice}>Total: $100</Text>
-				<Button
-					title="Confirm your payment"
-					onPress={() => {}}
-					fullWidth
-					style={styles.button}
-				/>
-			</View>
-		);
+	const router = useRouter();
+	const { paymentIntent, ephemeralKey, customer, orderId, total } =
+		useLocalSearchParams();
+	const { user } = useAuthStore();
+	const totalValue = Number(getStringParam(total));
+
+	return (
+		<View style={styles.container}>
+			<Text style={styles.title}>Complete your payment</Text>
+			<Text style={styles.subtitle}>
+				Please confirm your payment information to complete the order.
+			</Text>
+			<Text style={styles.totalPrice}>Total: ${totalValue.toFixed(2)}</Text>
+			<Button
+				title="Confirm your payment"
+				onPress={() => {}}
+				fullWidth
+				style={styles.button}
+			/>
+		</View>
+	);
 };
 
 export default PaymentScreen;

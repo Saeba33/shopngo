@@ -11,7 +11,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
 	res.send("yes we can");
 });
-
 app.use("/", checkout);
 
 app.listen(PORT, () => {

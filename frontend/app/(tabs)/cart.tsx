@@ -17,6 +17,7 @@ import {
 	View,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import axios from "axios";
 
 const CartScreen = () => {
 	const router = useRouter();
@@ -64,6 +65,51 @@ const CartScreen = () => {
 			if (error) {
 				throw new Error(`Order backup failed: ${error.message}`);
 			}
+
+			const payload = {
+				price: total,
+				email: user?.email,
+			};
+
+			const response = await axios.post(
+				"http://localhost:8000/checkout",
+				payload,
+				{
+					headers: {
+						"Content-Type" : "application/json"
+					}
+				}
+			);
+
+			const { paymentIntent, ephemeralKey, customer } = response.data;
+			console.log("res", paymentIntent, ephemeralKey, customer);
+
+			if (!paymentIntent || !ephemeralKey || !customer) {
+				throw new Error("Required Stripe data missing from the server");
+			} else {
+
+				Toast.show({
+					type: "success",
+					text1: "Order placed",
+					text2: "Order successfully placed",
+					position: "bottom",
+					visibilityTime: 2000,
+				});
+
+				router.push({
+					pathname: "/(tabs)/payment",
+					params: {
+						paymentIntent,
+						ephemeralKey,
+						customer,
+						orderId: data.id, 
+						total: total,
+					},
+				});
+				clearCart();
+			}
+			
+
 		} catch (error) {
 			Toast.show({
 				type: "error",
