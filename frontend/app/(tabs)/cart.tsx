@@ -1,9 +1,10 @@
 import Button from "@/components/Button";
 import CartItem from "@/components/CartItem";
-import { Title } from "@/components/CustomText";
+import { Title } from "@/components/customText";
 import EmptyState from "@/components/EmptyState";
 import MainLayout from "@/components/MainLayout";
 import { AppColors } from "@/constants/theme";
+import { supabase } from "@/lib/supabase";
 import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/cartStore";
 import { Link, useRouter } from "expo-router";
@@ -15,6 +16,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 const CartScreen = () => {
 	const router = useRouter();
@@ -26,9 +28,55 @@ const CartScreen = () => {
 	const shippingCost = subtotal > 100 ? 5.99 : 0;
 	const total = subtotal + shippingCost;
 
-const handlePlaceOrder = async() => {
+	const handlePlaceOrder = async () => {
+		if (!user) {
+			Toast.show({
+				type: "error",
+				text1: "Login required",
+				text2: "Please login to place an order",
+				position: "bottom",
+				visibilityTime: 2000,
+			});
+			return;
+		}
 
-}
+		try {
+			setLoading(true);
+			const orderData = {
+				user_email: user.email,
+				total_price: total,
+				items: items.map((item) => ({
+					product_id: item.product.id,
+					title: item.product.title,
+					price: item.product.price,
+					quantity: item.quantity,
+					image: item.product.image,
+				})),
+				payment_status: "Pending",
+			};
+
+			const { data, error } = await supabase
+				.from("orders")
+				.insert([orderData])
+				.select()
+				.single();
+
+			if (error) {
+				throw new Error(`Order backup failed: ${error.message}`);
+			}
+		} catch (error) {
+			Toast.show({
+				type: "error",
+				text1: "Order failed",
+				text2: "Order failure",
+				position: "bottom",
+				visibilityTime: 2000,
+			});
+			console.log("Order error", error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<MainLayout>
@@ -80,9 +128,7 @@ const handlePlaceOrder = async() => {
 						/>
 						{!user && (
 							<View style={styles.alertView}>
-								<Text style={styles.alertText}>
-									Login to place an order
-								</Text>
+								<Text style={styles.alertText}>Login to place an order</Text>
 								<Link href={"/(tabs)/login"}>
 									<Text style={styles.loginText}>Login</Text>
 								</Link>

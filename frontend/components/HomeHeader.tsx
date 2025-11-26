@@ -41,7 +41,7 @@ const HomeHeader = () => {
 							color={AppColors.primary[700]}
 						/>
 						<View style={styles.itemsView}>
-							<Text style={styles.itemsText}>0</Text>
+							<Text style={styles.itemsText}>{favoriteItems?.length ? favoriteItems?.length : 0}</Text>
 						</View>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -54,7 +54,7 @@ const HomeHeader = () => {
 							color={AppColors.primary[700]}
 						/>
 						<View style={styles.itemsView}>
-							<Text style={styles.itemsText}>0</Text>
+							<Text style={styles.itemsText}>{items?.length ? items?.length : 0}</Text>
 						</View>
 					</TouchableOpacity>
 				</View>

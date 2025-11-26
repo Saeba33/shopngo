@@ -37,10 +37,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	const { addItem } = useCartStore();
 	const { isFavorite, toggleFavorite } = useFavoritesStore();
 	const isFav = isFavorite(id);
-	const handleToggleFavorite = () => {
-		toggleFavorite(product);
-	};
+
 	const handleAddToCart = () => {
+		// e.stopPropagation();
+		addItem(product, 1);
 		Toast.show({
 			type: "success",
 			text1: `${title} added to cart`,
@@ -48,6 +48,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 			visibilityTime: 4000,
 		});
 	};
+
+	const handleToggleFavorite = () => {
+		toggleFavorite(product);
+	};
+	
 	return (
 		<TouchableOpacity
 			onPress={handleProductRoute}
