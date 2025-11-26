@@ -26,7 +26,7 @@ const CartScreen = () => {
 	const [loading, setLoading] = useState(false);
 
 	const subtotal = getTotalPrice();
-	const shippingCost = subtotal > 100 ? 5.99 : 0;
+	const shippingCost = subtotal < 100 ? 5.99 : 0;
 	const total = subtotal + shippingCost;
 
 	const handlePlaceOrder = async () => {

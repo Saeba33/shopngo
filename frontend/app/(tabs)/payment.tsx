@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import StripePayment from "@/components/StripePayment";
 import { AppColors } from "@/constants/theme";
 import { useAuthStore } from "@/store/authStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -15,6 +16,15 @@ const PaymentScreen = () => {
 	const { user } = useAuthStore();
 	const totalValue = Number(getStringParam(total));
 
+	const stripe = StripePayment({
+		paymentIntent: getStringParam(paymentIntent),
+		ephemeralKey: getStringParam(ephemeralKey),
+		customer: getStringParam(customer),
+		orderId: getStringParam(orderId),
+		userEmail: user?.email || "",
+		onSuccess: () => router.push("/(tabs)/orders"),
+	});
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Complete your payment</Text>
@@ -24,7 +34,7 @@ const PaymentScreen = () => {
 			<Text style={styles.totalPrice}>Total: ${totalValue.toFixed(2)}</Text>
 			<Button
 				title="Confirm your payment"
-				onPress={() => {}}
+				onPress={stripe.handlePayment}
 				fullWidth
 				style={styles.button}
 			/>
