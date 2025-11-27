@@ -2,12 +2,13 @@ import { AppColors } from "@/constants/theme";
 import React from "react";
 import {
 	KeyboardTypeOptions,
+	TextInput as RNTextInput,
 	StyleProp,
 	StyleSheet,
 	Text,
 	TextStyle,
 	View,
-	ViewStyle, TextInput as RNTextInput
+	ViewStyle,
 } from "react-native";
 
 interface TextInputProps {
@@ -46,24 +47,24 @@ const TextInput: React.FC<TextInputProps> = ({
 	return (
 		<View style={[styles.container, style]}>
 			{label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
-            <RNTextInput
-                value={value}
-                onChangeText={onChangeText}
-                placeholder={placeholder}
-                secureTextEntry={secureTextEntry}
-                keyboardType={keyboardType}
-                autoCapitalize={autoCapitalize}
-                autoCorrect={autoCorrect}
-                multiline={multiline}
-                numberOfLines={numberOfLines}
-                style={[
-                    styles.input,
-                    inputStyle,
-                    multiline && styles.multilineInput,
-                    error && styles.inputError
-                ]}
-            />
-            {error && <Text style={styles.errorText}>{error}</Text>}
+			<RNTextInput
+				value={value}
+				onChangeText={onChangeText}
+				placeholder={placeholder}
+				secureTextEntry={secureTextEntry}
+				keyboardType={keyboardType}
+				autoCapitalize={autoCapitalize}
+				autoCorrect={autoCorrect}
+				multiline={multiline}
+				numberOfLines={numberOfLines}
+				style={[
+					styles.input,
+					inputStyle,
+					multiline && styles.multilineInput,
+					error && styles.inputError,
+				]}
+			/>
+			{error && <Text style={styles.errorText}>{error}</Text>}
 		</View>
 	);
 };
@@ -83,12 +84,13 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		backgroundColor: AppColors.background.secondary,
-		borderRadius: 8,
+		borderRadius: 12,
 		paddingHorizontal: 16,
-		paddingVertical: 12,
-		borderWidth: 1,
+		paddingVertical: 14,
+		borderWidth: 1.5,
 		borderColor: AppColors.gray[300],
 		color: AppColors.text.primary,
+		fontSize: 15,
 	},
 	multilineInput: {
 		minHeight: 100,

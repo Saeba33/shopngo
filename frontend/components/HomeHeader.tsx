@@ -18,9 +18,9 @@ const HomeHeader = () => {
 	const router = useRouter();
 	const { items } = useCartStore();
 	const { favoriteItems } = useFavoritesStore();
-	
+
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView edges={["top", "left", "right"]} style={styles.container}>
 			<View style={styles.header}>
 				<Logo />
 				<View style={styles.iconContainer}>
@@ -41,7 +41,9 @@ const HomeHeader = () => {
 							color={AppColors.primary[700]}
 						/>
 						<View style={styles.itemsView}>
-							<Text style={styles.itemsText}>{favoriteItems?.length ? favoriteItems?.length : 0}</Text>
+							<Text style={styles.itemsText}>
+								{favoriteItems?.length ? favoriteItems?.length : 0}
+							</Text>
 						</View>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -54,7 +56,9 @@ const HomeHeader = () => {
 							color={AppColors.primary[700]}
 						/>
 						<View style={styles.itemsView}>
-							<Text style={styles.itemsText}>{items?.length ? items?.length : 0}</Text>
+							<Text style={styles.itemsText}>
+								{items?.length ? items?.length : 0}
+							</Text>
 						</View>
 					</TouchableOpacity>
 				</View>
@@ -74,10 +78,15 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		borderBottomWidth: 1,
-		borderBottomColor: AppColors.gray[300],
-		paddingBottom: 5,
+		borderBottomWidth: 0.5,
+		borderBottomColor: AppColors.gray[200],
+		paddingBottom: 8,
 		paddingHorizontal: 20,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.05,
+		shadowRadius: 2,
+		elevation: 1,
 	},
 	iconContainer: {
 		flex: 1,
@@ -87,35 +96,45 @@ const styles = StyleSheet.create({
 	},
 	searchButton: {
 		backgroundColor: AppColors.primary[50],
-		borderRadius: 5,
-		width: 35,
-		height: 35,
+		borderRadius: 10,
+		width: 38,
+		height: 38,
 		alignItems: "center",
 		justifyContent: "center",
 		marginLeft: 8,
 		borderWidth: 1,
-		borderColor: AppColors.primary[500],
+		borderColor: AppColors.primary[400],
 		position: "relative",
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.08,
+		shadowRadius: 3,
+		elevation: 2,
 	},
 	itemsView: {
 		position: "absolute",
-		top: -5,
-		right: -5,
+		top: -6,
+		right: -6,
 		borderRadius: 50,
-		width: 15,
-		height: 15,
-		backgroundColor: AppColors.background.primary,
+		width: 18,
+		height: 18,
+		backgroundColor: AppColors.accent[500],
 		alignItems: "center",
 		justifyContent: "center",
-		borderWidth: 1,
-		borderColor: AppColors.primary[500],
+		borderWidth: 2,
+		borderColor: AppColors.background.primary,
 		paddingHorizontal: 3,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.2,
+		shadowRadius: 2,
+		elevation: 3,
 	},
 	itemsText: {
 		fontSize: 10,
 		lineHeight: 10,
-		color: AppColors.accent[500],
-		fontWeight: 800,
+		color: AppColors.background.primary,
+		fontWeight: "800",
 		textAlign: "center",
 	},
 });

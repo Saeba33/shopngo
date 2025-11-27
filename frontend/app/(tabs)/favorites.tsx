@@ -39,12 +39,13 @@ const FavoritesScreen = () => {
 		<View style={{ flex: 1 }}>
 			<HomeHeader />
 			{favoriteItems?.length > 0 && (
-				<View style={{paddingHorizontal: 20}}>
+				<View style={{ paddingHorizontal: 20 }}>
 					<View style={styles.headerView}>
 						<View>
 							<Text style={styles.title}>Your favorites</Text>
 							<Text style={styles.itemCount}>
-								{favoriteItems?.length} product{favoriteItems?.length > 1 ? "s" : ""}
+								{favoriteItems?.length} product
+								{favoriteItems?.length > 1 ? "s" : ""}
 							</Text>
 						</View>
 						<View>
@@ -77,35 +78,52 @@ export default FavoritesScreen;
 
 const styles = StyleSheet.create({
 	headerView: {
-		paddingBottom: 5,
+		paddingVertical: 16,
+		paddingHorizontal: 16,
 		backgroundColor: AppColors.background.primary,
-		borderBottomWidth: 1,
-		borderBottomColor: AppColors.gray[200],
+		borderRadius: 12,
+		marginTop: 8,
+		marginBottom: 12,
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.08,
+		shadowRadius: 8,
+		elevation: 2,
+		borderWidth: 0.5,
+		borderColor: AppColors.gray[200],
 	},
 	resetText: {
-		color: AppColors.error,
+		color: AppColors.background.primary,
+		backgroundColor: AppColors.error,
 		borderColor: AppColors.error,
-		borderWidth: 1,
-		paddingHorizontal: 6,
-		paddingVertical: 1,
-		borderRadius: 4,
+		borderWidth: 1.5,
+		paddingHorizontal: 12,
+		paddingVertical: 6,
+		borderRadius: 8,
+		fontWeight: "600",
+		fontSize: 13,
+		overflow: "hidden",
 	},
 	title: {
 		fontFamily: "Inter-Bold",
-		fontSize: 20,
+		fontSize: 22,
 		color: AppColors.text.primary,
+		fontWeight: "700",
+		letterSpacing: -0.5,
 	},
 	itemCount: {
 		fontFamily: "Inter-Regular",
 		fontSize: 14,
 		color: AppColors.text.secondary,
-		marginTop: 2,
+		marginTop: 4,
+		fontWeight: "500",
 	},
 	productsGrid: {
-		paddingTop: 10,
+		paddingTop: 8,
+		paddingBottom: 16,
 	},
 	columnWrapper: {
 		justifyContent: "space-between",

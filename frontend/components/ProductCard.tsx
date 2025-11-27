@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	const handleToggleFavorite = () => {
 		toggleFavorite(product);
 	};
-	
+
 	return (
 		<TouchableOpacity
 			onPress={handleProductRoute}
@@ -131,21 +131,26 @@ const styles = StyleSheet.create({
 		marginBottom: 4,
 	},
 	content: {
-		padding: 12,
+		padding: 14,
 		backgroundColor: AppColors.background.secondary,
 	},
 	favoriteButton: {
 		position: "absolute",
 		top: 8,
 		right: -45,
-		backgroundColor: "rgba(255, 255, 255, 0.8)",
-		borderRadius: 18,
+		backgroundColor: "rgba(255, 255, 255, 0.95)",
+		borderRadius: 20,
 		padding: 2,
-		width: 32,
-		height: 32,
+		width: 34,
+		height: 34,
 		justifyContent: "center",
 		alignItems: "center",
 		borderColor: AppColors.error,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.15,
+		shadowRadius: 4,
+		elevation: 3,
 	},
 	image: {
 		width: "100%",
@@ -156,7 +161,7 @@ const styles = StyleSheet.create({
 		height: 150,
 		width: 100,
 		backgroundColor: AppColors.background.primary,
-		padding: 5,
+		padding: 8,
 	},
 	compactCard: {
 		width: 150,
@@ -164,16 +169,16 @@ const styles = StyleSheet.create({
 	},
 	card: {
 		backgroundColor: AppColors.background.primary,
-		borderRadius: 12,
+		borderRadius: 16,
 		overflow: "hidden",
 		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.1,
-		shadowRadius: 8,
-		elevation: 2,
+		shadowOffset: { width: 0, height: 4 },
+		shadowOpacity: 0.12,
+		shadowRadius: 12,
+		elevation: 4,
 		width: "48%",
 		marginBottom: 16,
-		borderWidth: 1,
+		borderWidth: 0.5,
 		borderColor: AppColors.gray[200],
 	},
 	ratingText: {
