@@ -121,37 +121,6 @@ const SingleProductScreen = () => {
 					<View style={styles.divider} />
 					<Text style={styles.descriptionTitle}>Description</Text>
 					<Text style={styles.description}>{product?.description}</Text>
-					<View style={styles.quantityContainer}>
-						<Text style={styles.quantityTitle}>Quantity</Text>
-						<View style={styles.quantityControls}>
-							<TouchableOpacity
-								style={styles.quantityButton}
-								onPress={() => {
-									if (quantity > 1) {
-										setQuantity((prev) => prev - 1);
-									}
-								}}
-								disabled={quantity <= 1}
-							>
-								<AntDesign
-									name="minus"
-									size={20}
-									color={AppColors.primary[600]}
-								/>
-							</TouchableOpacity>
-							<Text style={styles.quantityValue}>{quantity}</Text>
-							<TouchableOpacity
-								style={styles.quantityButton}
-								onPress={() => setQuantity((prev) => prev + 1)}
-							>
-								<AntDesign
-									name="plus"
-									size={20}
-									color={AppColors.primary[600]}
-								/>
-							</TouchableOpacity>
-						</View>
-					</View>
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
@@ -193,47 +162,72 @@ const styles = StyleSheet.create({
 	},
 	footer: {
 		position: "absolute",
-		bottom: 50,
+		bottom: 0,
 		left: 0,
 		right: 0,
 		backgroundColor: AppColors.background.primary,
-		borderTopWidth: 1,
+		borderTopWidth: 0.5,
 		borderTopColor: AppColors.gray[200],
-		paddingHorizontal: 24,
-		paddingVertical: 16,
-		paddingBottom: 32,
+		paddingHorizontal: 20,
+		paddingTop: 16,
+		paddingBottom: 40,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: -4 },
+		shadowOpacity: 0.1,
+		shadowRadius: 12,
+		elevation: 8,
+	},
+	footerTop: {
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "space-between",
+		marginBottom: 16,
 	},
-	quantityValue: {
+	priceSection: {
+		flex: 1,
+	},
+	totalLabel: {
 		fontFamily: "Inter-Medium",
-		fontSize: 16,
-		color: AppColors.text.primary,
-		paddingHorizontal: 16,
+		fontSize: 13,
+		color: AppColors.text.secondary,
+		marginBottom: 4,
 	},
-	quantityButton: {
-		width: 36,
-		height: 36,
-		borderRadius: 18,
-		backgroundColor: AppColors.background.secondary,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	quantityControls: {
-		flexDirection: "row",
-		alignItems: "center",
-	},
-	quantityTitle: {
-		fontFamily: "Inter-SemiBold",
-		fontSize: 16,
-		color: AppColors.text.primary,
+	totalPrice: {
+		fontFamily: "Inter-Bold",
+		fontSize: 24,
+		color: AppColors.primary[600],
+		fontWeight: "700",
 	},
 	quantityContainer: {
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "space-between",
-		marginBottom: 24,
+		gap: 12,
+	},
+	quantityValue: {
+		fontFamily: "Inter-Bold",
+		fontSize: 18,
+		color: AppColors.text.primary,
+		minWidth: 32,
+		textAlign: "center",
+		fontWeight: "700",
+	},
+	quantityButton: {
+		width: 38,
+		height: 38,
+		borderRadius: 19,
+		backgroundColor: AppColors.primary[50],
+		borderWidth: 1,
+		borderColor: AppColors.primary[300],
+		alignItems: "center",
+		justifyContent: "center",
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.08,
+		shadowRadius: 2,
+		elevation: 2,
+	},
+	addToCartButton: {
+		marginTop: 0,
 	},
 	description: {
 		fontFamily: "Inter-Regular",
@@ -255,31 +249,37 @@ const styles = StyleSheet.create({
 	},
 	price: {
 		fontFamily: "Inter-Bold",
-		fontSize: 24,
+		fontSize: 28,
 		color: AppColors.primary[600],
 		marginBottom: 16,
+		marginTop: 8,
+		fontWeight: "700",
 	},
 	ratingContainer: {
 		marginBottom: 16,
 	},
 	title: {
 		fontFamily: "Inter-Bold",
-		fontSize: 24,
+		fontSize: 22,
 		color: AppColors.text.primary,
-		marginBottom: 8,
+		marginBottom: 12,
+		lineHeight: 28,
+		fontWeight: "700",
 	},
 	category: {
 		fontFamily: "Inter-Medium",
-		fontSize: 14,
-		color: AppColors.text.secondary,
+		fontSize: 13,
+		color: AppColors.primary[600],
 		marginBottom: 8,
-		textTransform: "capitalize",
+		textTransform: "uppercase",
+		letterSpacing: 0.5,
+		fontWeight: "600",
 	},
 	productInfo: {
-		paddingHorizontal: 24,
-		paddingBottom: 120,
-		paddingTop: 10,
-		backgroundColor: AppColors.background.secondary,
+		paddingHorizontal: 20,
+		paddingBottom: 200,
+		paddingTop: 16,
+		backgroundColor: AppColors.background.primary,
 	},
 	productImage: {
 		width: "80%",
@@ -295,13 +295,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: AppColors.background.primary,
 		position: "relative",
-	},
-	totalPrice: {
-		fontFamily: "Inter-Bold",
-		fontSize: 18,
-		color: AppColors.text.primary,
-	},
-	addToCartButton: {
-		width: "50%",
 	},
 });

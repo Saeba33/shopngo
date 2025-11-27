@@ -28,7 +28,7 @@ const CommonHeader = ({ isFav, showCart, handleToggleFavorite }: Props) => {
 	};
 
 	return (
-		<SafeAreaView style={styles.header}>
+		<View style={styles.header}>
 			<TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
 				<Feather name="arrow-left" size={24} color={AppColors.text.primary} />
 			</TouchableOpacity>
@@ -47,21 +47,18 @@ const CommonHeader = ({ isFav, showCart, handleToggleFavorite }: Props) => {
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[styles.favoriteButton, isFav && styles.activeFavoriteButton]}
+					style={styles.favoriteButton}
 					onPress={() => router.push("/(tabs)/cart")}
 				>
 					<MaterialCommunityIcons
 						name="cart-outline"
 						size={24}
-						color={
-							isFav ? AppColors.background.primary : AppColors.text.primary
-						}
+						color={AppColors.text.primary}
 						fill={isFav ? AppColors.background.primary : "transparent"}
 					/>
 				</TouchableOpacity>
 			</View>
-			<Text>CommonHeader</Text>
-		</SafeAreaView>
+		</View>
 	);
 };
 
@@ -71,33 +68,48 @@ const styles = StyleSheet.create({
 	header: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-		paddingHorizontal: 16,
+		paddingHorizontal: 20,
 		paddingTop: 16,
+		paddingBottom: 8,
 		zIndex: 10,
 		marginTop: Platform.OS === "android" ? 35 : 0,
 	},
 	backButton: {
-		width: 40,
-		height: 40,
-		borderRadius: 20,
+		width: 44,
+		height: 44,
+		borderRadius: 22,
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: AppColors.background.secondary,
+		backgroundColor: AppColors.background.primary,
+		borderWidth: 1,
+		borderColor: AppColors.gray[300],
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.1,
+		shadowRadius: 4,
+		elevation: 3,
 	},
 	favoriteButton: {
-		width: 40,
-		height: 40,
-		borderRadius: 20,
+		width: 44,
+		height: 44,
+		borderRadius: 22,
 		justifyContent: "center",
 		alignItems: "center",
 		borderWidth: 1,
-		backgroundColor: AppColors.background.secondary,
+		borderColor: AppColors.gray[300],
+		backgroundColor: AppColors.background.primary,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.1,
+		shadowRadius: 4,
+		elevation: 3,
 	},
 	activeFavoriteButton: {
 		backgroundColor: AppColors.error,
+		borderColor: AppColors.error,
 	},
 	buttonView: {
 		flexDirection: "row",
-		gap: 7,
+		gap: 10,
 	},
 });
