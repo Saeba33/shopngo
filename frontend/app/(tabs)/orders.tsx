@@ -260,7 +260,7 @@ const OrderScreen = () => {
 
 	return (
 		<Wrapper>
-			<Title>Mes commandes</Title>
+			<Title>My orders</Title>
 			{orders?.length > 0 ? (
 				<FlatList
 					data={orders}
