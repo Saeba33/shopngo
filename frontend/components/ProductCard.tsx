@@ -68,7 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 			</View>
 			<TouchableOpacity
 				onPress={handleToggleFavorite}
-				style={[styles.favoriteButton, { borderWidth: isFav ? 1 : 0 }]}
+				style={styles.favoriteButton}
 			>
 				<AntDesign
 					name="heart"
@@ -91,12 +91,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					</Text>
 					<Rating rating={rating?.rate} count={rating?.count} size={12} />
 					{!compact && (
-						<Button
-							title="Add to cart"
-							size="small"
-							variant="outline"
-							onPress={handleAddToCart}
-						/>
+						<>
+							<View style={{ height : 10}}></View>
+							<Button
+								title="Add to cart"
+								size="small"
+								variant="outline"
+								onPress={handleAddToCart}
+							/>
+						</>
 					)}
 				</View>
 			</View>
@@ -144,11 +147,7 @@ const styles = StyleSheet.create({
 		height: 34,
 		justifyContent: "center",
 		alignItems: "center",
-		borderColor: AppColors.error,
-		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.15,
-		shadowRadius: 4,
+
 		elevation: 3,
 		zIndex: 10,
 	},
