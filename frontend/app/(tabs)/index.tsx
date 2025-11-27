@@ -113,9 +113,8 @@ export default function HomeScreen() {
 							keyExtractor={(item) => item.id.toString()}
 							horizontal
 							showsHorizontalScrollIndicator={false}
-							contentContainerStyle={styles.featuredProductsContainer}
 							renderItem={({ item }) => (
-								<View style={styles.featuredProductContainer}>
+								<View>
 									<ProductCard product={item} compact />
 								</View>
 							)}
@@ -144,25 +143,15 @@ export default function HomeScreen() {
 		</View>
 	);
 }
-
 const styles = StyleSheet.create({
+	wrapper: {
+		// flex: 1,
+		backgroundColor: AppColors.background.primary,
+	},
 	container: {
 		flex: 1,
 		backgroundColor: AppColors.background.primary,
 	},
-	errorContainer: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 24,
-	},
-	errorText: {
-		fontFamily: "Inter-Medium",
-		fontSize: 16,
-		color: AppColors.error,
-		textAlign: "center",
-	},
-	wrapper: {},
 	contentContainer: {
 		// paddingHorizontal: 20,
 		paddingLeft: 20,
@@ -170,9 +159,32 @@ const styles = StyleSheet.create({
 	scrollContainerView: {
 		paddingBottom: 300,
 	},
+	errorContainer: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		padding: 24,
+	},
 	categoriesSection: {
 		marginTop: 10,
 		marginBottom: 16,
+	},
+	categoryButton: {
+		flexDirection: "row",
+		alignItems: "center",
+		backgroundColor: AppColors.background.secondary,
+		paddingVertical: 10,
+		paddingHorizontal: 12,
+		borderRadius: 8,
+		marginLeft: 5,
+		minWidth: 100,
+	},
+	categoryText: {
+		marginLeft: 6,
+		fontFamily: "Inter-Medium",
+		fontSize: 12,
+		color: AppColors.text.primary,
+		textTransform: "capitalize",
 	},
 	sectionHeader: {
 		flexDirection: "row",
@@ -186,30 +198,38 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: AppColors.primary[500],
 	},
-	categoryButton: {
-		flexDirection: "row",
-		alignItems: "center",
-		backgroundColor: AppColors.background.secondary,
-		paddingVertical: 10,
-		borderRadius: 8,
-		marginLeft: 5,
-		minWidth: 100,
-	},
-	categoryText: {
-		marginLeft: 6,
+	seeAllText: {
 		fontFamily: "Inter-Medium",
-		fontSize: 12,
-		color: AppColors.text.primary,
-		textTransform: "capitalize",
+		fontSize: 14,
+		color: AppColors.primary[500],
+	},
+	errorText: {
+		fontFamily: "Inter-Medium",
+		fontSize: 16,
+		color: AppColors.error,
+		textAlign: "center",
+	},
+	productContainer: {
+		width: "48%",
+	},
+	productsGrid: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "space-between",
+		paddingRight: 20,
+	},
+	newestSection: {
+		marginVertical: 16,
+		marginBottom: 32,
+	},
+	productGrid: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "space-between",
 	},
 	featuredProductsContainer: {},
 	featuredProductContainer: {},
-	featuredSection: {},
-	newestSection: {},
-	seeAllText: {},
-	productContainer: {},
-	productGrid: {
-		justifyContent: "center",
-		paddingRight: 20,
+	featuredSection: {
+		marginVertical: 16,
 	},
 });

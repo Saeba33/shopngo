@@ -4,7 +4,6 @@ import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
 import { AppColors } from "@/constants/theme";
 import { useFavoritesStore } from "@/store/favoriteStore";
-
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -18,12 +17,9 @@ import {
 const FavoritesScreen = () => {
 	const router = useRouter();
 	const { favoriteItems, resetFavorite } = useFavoritesStore();
-/* 	console.log(favoriteItems); */
-
 	const navigateToProducts = () => {
 		router.push("/(tabs)/shop");
 	};
-
 
 	if (favoriteItems?.length === 0) {
 		return (
@@ -42,14 +38,13 @@ const FavoritesScreen = () => {
 	return (
 		<View style={{ flex: 1 }}>
 			<HomeHeader />
-
 			{favoriteItems?.length > 0 && (
-				<Wrapper>
+				<View style={{paddingHorizontal: 20}}>
 					<View style={styles.headerView}>
-						<View style={styles.header}>
+						<View>
 							<Text style={styles.title}>Your favorites</Text>
 							<Text style={styles.itemCount}>
-								{favoriteItems?.length} products
+								{favoriteItems?.length} product{favoriteItems?.length > 1 ? "s" : ""}
 							</Text>
 						</View>
 						<View>
@@ -72,7 +67,7 @@ const FavoritesScreen = () => {
 						showsVerticalScrollIndicator={false}
 						ListFooterComponent={<View style={styles.footer} />}
 					/>
-				</Wrapper>
+				</View>
 			)}
 		</View>
 	);
@@ -81,10 +76,6 @@ const FavoritesScreen = () => {
 export default FavoritesScreen;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: AppColors.background.primary,
-	},
 	headerView: {
 		paddingBottom: 5,
 		backgroundColor: AppColors.background.primary,
@@ -92,11 +83,15 @@ const styles = StyleSheet.create({
 		borderBottomColor: AppColors.gray[200],
 		flexDirection: "row",
 		justifyContent: "space-between",
-		alignItems: "flex-start",
+		alignItems: "center",
 	},
-	header: {},
 	resetText: {
 		color: AppColors.error,
+		borderColor: AppColors.error,
+		borderWidth: 1,
+		paddingHorizontal: 6,
+		paddingVertical: 1,
+		borderRadius: 4,
 	},
 	title: {
 		fontFamily: "Inter-Bold",

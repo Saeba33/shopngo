@@ -28,6 +28,7 @@ const ProfileScreen = () => {
 		if (!user) {
 			checkSession();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
 
 	const menuItems = [
@@ -148,7 +149,7 @@ const ProfileScreen = () => {
 							</TouchableOpacity>
 						))}
 					</View>
-					<View>
+					<View style={styles.logoutContainer}>
 						<Button
 							title="Logout"
 							onPress={handleLogout}
@@ -178,20 +179,55 @@ const ProfileScreen = () => {
 							title="Register"
 							fullWidth
 							variant="outline"
-							style={styles.signupButton}
+							style={styles.signupButton} 
 							textStyle={styles.signupButtonText}
 							onPress={() => router.push("/(tabs)/signup")}
 						/>
-					</View>
-				</View>
+					</View> 
+				</View> 
 			)}
 		</Wrapper>
 	);
 };
 
 export default ProfileScreen;
-
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: AppColors.background.primary,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	header: {
+		paddingBottom: 16,
+		backgroundColor: AppColors.background.primary,
+		marginTop: Platform.OS === "android" ? 30 : 0,
+	},
+	title: {
+		fontFamily: "Inter-Bold",
+		fontSize: 24,
+		color: AppColors.text.primary,
+	},
+	profileCard: {
+		flexDirection: "row",
+		alignItems: "center",
+		// backgroundColor: AppColors.background.primary,
+		paddingVertical: 20,
+		borderBottomWidth: 1,
+		borderBottomColor: AppColors.gray[200],
+	},
+	avatarContainer: {
+		width: 60,
+		height: 60,
+		borderRadius: 30,
+		backgroundColor: AppColors.gray[200],
+		alignItems: "center",
+		justifyContent: "center",
+		marginRight: 16,
+	},
+	profileInfo: {
+		flex: 1,
+	},
 	profileEmail: {
 		fontFamily: "Inter-SemiBold",
 		fontSize: 16,
@@ -212,7 +248,7 @@ const styles = StyleSheet.create({
 	menuItem: {
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "space-between",
 		paddingVertical: 16,
 		borderBottomWidth: 1,
 		borderBottomColor: AppColors.gray[200],
@@ -229,7 +265,7 @@ const styles = StyleSheet.create({
 	},
 	logoutContainer: {
 		marginTop: 24,
-		//paddingHorizontal: 16,
+		//paddingHorizontal: 16
 	},
 	logoutButton: {
 		backgroundColor: "transparent",
@@ -265,42 +301,5 @@ const styles = StyleSheet.create({
 		fontFamily: "Inter-SemiBold",
 		fontSize: 16,
 		color: AppColors.primary[500],
-	},
-
-	container: {
-		flex: 1,
-		backgroundColor: AppColors.background.primary,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	header: {
-		paddingBottom: 16,
-		backgroundColor: AppColors.background.primary,
-		marginTop: Platform.OS === "android" ? 30 : 0,
-	},
-	title: {
-		fontFamily: "Inter-Bold",
-		fontSize: 24,
-		color: AppColors.text.primary,
-	},
-	profileCard: {
-		flexDirection: "row",
-		alignItems: "center",
-		backgroundColor: AppColors.background.primary,
-		paddingVertical: 20,
-		borderBottomWidth: 1,
-		borderBlockColor: AppColors.gray[200],
-	},
-	avatarContainer: {
-		width: 60,
-		height: 60,
-		borderRadius: 30,
-		backgroundColor: AppColors.gray[200],
-		alignItems: "center",
-		justifyContent: "center",
-		marginRight: 16,
-	},
-	profileInfo: {
-		flex: 1,
 	},
 });

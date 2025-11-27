@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: AppColors.background.primary,
 		paddingHorizontal: 20,
-		paddingVertical: 10,
 	},
 });

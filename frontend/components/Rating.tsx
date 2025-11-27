@@ -1,7 +1,7 @@
 import { AppColors } from "@/constants/theme";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 interface RatingProps {
 	rating: number;
@@ -50,7 +50,10 @@ const Rating: React.FC<RatingProps> = ({
 
 	return (
 		<View style={styles.container}>
-			<View>{renderStars()}</View>
+			<View style={styles.starsContainer}>{renderStars()}</View>
+			{showCount && count !== undefined && (
+				<Text style={styles.count}>({count})</Text>
+			)}
 		</View>
 	);
 };

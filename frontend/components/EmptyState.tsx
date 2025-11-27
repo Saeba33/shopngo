@@ -60,8 +60,22 @@ const EmptyState:React.FC<EmptyStateProps> = ({
 export default EmptyState;
 
 const styles = StyleSheet.create({
-	container: {},
-	iconContainer: {},
-	message: {},
-	button: {},
+	container: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		padding: 24,
+	},
+	iconContainer: {
+		marginBottom: 16,
+	},
+	message: {
+		fontSize: 18,
+		color: AppColors.text.secondary,
+		textAlign: "center",
+		marginBottom: 24,
+	},
+	button: {
+		marginTop: 16,
+	},
 });

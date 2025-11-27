@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 	},
 	footer: {
-		flexDirection: "row",
+		// flexDirection: "row",
 		justifyContent: "space-between",
-		alignItems: "center",
+		// alignItems: "center",
 	},
 	title: {
 		fontSize: 14,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 	favoriteButton: {
 		position: "absolute",
 		top: 8,
-		right: 8,
+		right: -45,
 		backgroundColor: "rgba(255, 255, 255, 0.8)",
 		borderRadius: 18,
 		padding: 2,
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
 	imageContainer: {
 		position: "relative",
 		height: 150,
+		width: 100,
 		backgroundColor: AppColors.background.primary,
 		padding: 5,
 	},
