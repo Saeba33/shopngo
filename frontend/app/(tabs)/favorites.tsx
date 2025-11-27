@@ -96,8 +96,7 @@ const styles = StyleSheet.create({
 		borderColor: AppColors.gray[200],
 	},
 	resetText: {
-		color: AppColors.background.primary,
-		backgroundColor: AppColors.error,
+		color: AppColors.error,
 		borderColor: AppColors.error,
 		borderWidth: 1.5,
 		paddingHorizontal: 12,

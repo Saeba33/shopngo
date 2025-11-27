@@ -29,7 +29,8 @@ const HomeHeader = () => {
 					onPress={() => router.push("/(tabs)/search")}
 				>
 					<Ionicons name="search-outline" size={22} color={AppColors.primary[700]} />
-				</TouchableOpacity>					<TouchableOpacity
+				</TouchableOpacity>
+				<TouchableOpacity
 						style={styles.searchButton}
 						onPress={() => router.push("/(tabs)/favorites")}
 					>
