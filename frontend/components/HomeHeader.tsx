@@ -1,7 +1,7 @@
 import { AppColors } from "@/constants/theme";
 import { useCartStore } from "@/store/cartStore";
 import { useFavoritesStore } from "@/store/favoriteStore";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -24,14 +24,12 @@ const HomeHeader = () => {
 			<View style={styles.header}>
 				<Logo />
 				<View style={styles.iconContainer}>
-					<TouchableOpacity
-						style={styles.searchButton}
-						onPress={() => router.push("/(tabs)/search")}
-					>
-						<AntDesign name="search" size={20} color={AppColors.primary[700]} />
-					</TouchableOpacity>
-
-					<TouchableOpacity
+				<TouchableOpacity
+					style={styles.searchButton}
+					onPress={() => router.push("/(tabs)/search")}
+				>
+					<Ionicons name="search-outline" size={22} color={AppColors.primary[700]} />
+				</TouchableOpacity>					<TouchableOpacity
 						style={styles.searchButton}
 						onPress={() => router.push("/(tabs)/favorites")}
 					>
