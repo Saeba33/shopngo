@@ -124,14 +124,30 @@ const SingleProductScreen = () => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<Text style={styles.totalPrice}>
-					Total: ${(product?.price * quantity).toFixed(2)}
-				</Text>
-				<Button
-					title="Add to cart"
-					onPress={handleAddToCart}
-					style={styles.addToCartButton}
-				/>
+				<View style={styles.footerTop}>
+					<View style={styles.priceSection}>
+						<Text style={styles.totalLabel}>Total</Text>
+						<Text style={styles.totalPrice}>
+							${(product?.price * quantity).toFixed(2)}
+						</Text>
+					</View>
+					<View style={styles.quantityContainer}>
+						<TouchableOpacity
+							style={styles.quantityButton}
+							onPress={() => setQuantity(Math.max(1, quantity - 1))}
+						>
+							<AntDesign name="minus" size={18} color={AppColors.primary[600]} />
+						</TouchableOpacity>
+						<Text style={styles.quantityValue}>{quantity}</Text>
+						<TouchableOpacity
+							style={styles.quantityButton}
+							onPress={() => setQuantity(quantity + 1)}
+						>
+							<AntDesign name="plus" size={18} color={AppColors.primary[600]} />
+						</TouchableOpacity>
+					</View>
+				</View>
+				<Button title="Add to cart" onPress={handleAddToCart} />
 			</View>
 		</View>
 	);
@@ -141,6 +157,7 @@ export default SingleProductScreen;
 
 const styles = StyleSheet.create({
 	headerContainerStyle: {
+		flex: 1,
 		paddingTop: 30,
 		backgroundColor: AppColors.background.primary,
 	},
