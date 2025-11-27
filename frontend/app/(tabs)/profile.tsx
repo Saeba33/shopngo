@@ -74,7 +74,7 @@ const ProfileScreen = () => {
 		{
 			id: "address",
 			icon: <Foundation name="home" size={20} color={AppColors.primary[500]} />,
-			title: "shipping adress",
+			title: "Shipping address",
 			onPress: () => {},
 		},
 		{
